@@ -17,7 +17,7 @@ jobs:
       - run: flutter pub get
       - run: flutter build apk --no-tree-shake-icons
       - run: flutter build appbundle --no-tree-shake-icons
-      - run: flutter build linux --no-tree-shake-icons
+      # - run: flutter build linux --no-tree-shake-icons
 
       - name: Release
         uses: softprops/action-gh-release@v2
