@@ -15,5 +15,14 @@ jobs:
       - run: flutter --version
 
       - run: flutter pub get
-      - run: flutter build apk
-      - run: flutter build appbundle
+      - run: flutter build apk --no-tree-shake-icons
+      - run: flutter build appbundle --no-tree-shake-icons
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+            
