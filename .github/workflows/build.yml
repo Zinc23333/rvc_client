@@ -1,15 +1,11 @@
-name: Build flutter app
-on: [push]
+name: Flutter Workflow
+
+on: push
 jobs:
-  Explore-GitHub-Actions:
+  test:
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Build Android bundle
-        uses: AcmeSoftwareLLC/flutter-build@v1
-        with:
-          platform: android
-          build-name: 1.0.0
-          build-number: 20231005
-          # dart-define-file: configs/.env.production
-          pub-get: true
-          gen-icons: false
+      - name: Flutter publish
+        uses: spydon/flutter-publish@v0
+            
