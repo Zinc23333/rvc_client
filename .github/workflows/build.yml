@@ -122,13 +122,14 @@ jobs:
         with:
           name: release_macos
       
-      - run: |
-          mv app-release-universal.apk RVC-${{ steps.get_version.outputs.VERSION }}-android-universal.apk
-          mv app-release-arm64.apk     RVC-${{ steps.get_version.outputs.VERSION }}-android-arm64.apk
-          mv app-release.aab           RVC-${{ steps.get_version.outputs.VERSION }}-android.aab
-          mv release_linux.tar.gz      RVC-${{ steps.get_version.outputs.VERSION }}-linux.tar.gz
-          mv rvc_client.exe            RVC-${{ steps.get_version.outputs.VERSION }}-windows.exe
-          mv rvc_client.app            RVC-${{ steps.get_version.outputs.VERSION }}-macos.app
+      - name: Rename files
+        run: |
+          mv app-release-universal.apk RVC-android-universal.apk
+          mv app-release-arm64.apk     RVC-android-arm64.apk
+          mv app-release.aab           RVC-android.aab
+          mv release_linux.tar.gz      RVC-linux.tar.gz
+          mv rvc_client.exe            RVC-windows.exe
+          mv rvc_client.app            RVC-macos.app
 
 
       - name: Release
@@ -141,10 +142,10 @@ jobs:
           draft: false
           prerelease: true
           files: |
-            RVC-${{ steps.get_version.outputs.VERSION }}-android-universal-universal.apk
-            RVC-${{ steps.get_version.outputs.VERSION }}-android-arm64-arm64.apk
-            RVC-${{ steps.get_version.outputs.VERSION }}-android.aab.aab
-            RVC-${{ steps.get_version.outputs.VERSION }}-linux.tar.gz
-            RVC-${{ steps.get_version.outputs.VERSION }}-windows.exe
-            RVC-${{ steps.get_version.outputs.VERSION }}-macos.app
+            RVC-android-universal-universal.apk
+            RVC-android-arm64-arm64.apk
+            RVC-android.aab.aab
+            RVC-linux.tar.gz
+            RVC-windows.exe
+            RVC-macos.app
             
