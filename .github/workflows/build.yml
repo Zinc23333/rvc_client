@@ -123,12 +123,12 @@ jobs:
           name: release_macos
       
       - run: |
-          mv app-release-universal.apk RVC-${{ github.ref }}-android-universal.apk
-          mv app-release-arm64.apk     RVC-${{ github.ref }}-android-arm64.apk
-          mv app-release.aab           RVC-${{ github.ref }}-android.aab
-          mv release_linux.tar.gz      RVC-${{ github.ref }}-linux.tar.gz
-          mv rvc_client.exe            RVC-${{ github.ref }}-windows.exe
-          mv rvc_client.app            RVC-${{ github.ref }}-macos.app
+          mv app-release-universal.apk RVC-${{ steps.get_version.outputs.VERSION }}-android-universal.apk
+          mv app-release-arm64.apk     RVC-${{ steps.get_version.outputs.VERSION }}-android-arm64.apk
+          mv app-release.aab           RVC-${{ steps.get_version.outputs.VERSION }}-android.aab
+          mv release_linux.tar.gz      RVC-${{ steps.get_version.outputs.VERSION }}-linux.tar.gz
+          mv rvc_client.exe            RVC-${{ steps.get_version.outputs.VERSION }}-windows.exe
+          mv rvc_client.app            RVC-${{ steps.get_version.outputs.VERSION }}-macos.app
 
 
       - name: Release
@@ -141,10 +141,10 @@ jobs:
           draft: false
           prerelease: true
           files: |
-            RVC-${{ github.ref }}-android-universal-universal.apk
-            RVC-${{ github.ref }}-android-arm64-arm64.apk
-            RVC-${{ github.ref }}-android.aab.aab
-            RVC-${{ github.ref }}-linux.tar.gz
-            RVC-${{ github.ref }}-windows.exe
-            RVC-${{ github.ref }}-macos.app
+            RVC-${{ steps.get_version.outputs.VERSION }}-android-universal-universal.apk
+            RVC-${{ steps.get_version.outputs.VERSION }}-android-arm64-arm64.apk
+            RVC-${{ steps.get_version.outputs.VERSION }}-android.aab.aab
+            RVC-${{ steps.get_version.outputs.VERSION }}-linux.tar.gz
+            RVC-${{ steps.get_version.outputs.VERSION }}-windows.exe
+            RVC-${{ steps.get_version.outputs.VERSION }}-macos.app
             
