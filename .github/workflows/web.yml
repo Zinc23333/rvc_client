@@ -38,8 +38,7 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
-      - run: flutter build web
-    
+      - run: flutter build web --no-tree-shake-icons --release --base-href=/rvc_client/
     
       - name: Setup Pages
         uses: actions/configure-pages@v5
