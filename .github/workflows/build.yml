@@ -2,7 +2,7 @@ name: Flutter Workflow
 
 on: push
 jobs:
-  build:
+  build-linux:
     name: Build Flutter app
     runs-on: ubuntu-latest
     steps:
@@ -12,6 +12,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable # or: beta, master (or main)
+          cache: true
       - run: flutter --version
 
       - run: flutter pub get
@@ -27,24 +28,55 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y ninja-build libgtk-3-dev
       - run: flutter build linux
-
       - run: tar -czvf release_linux.tar.gz build/linux/x64/release/bundle
 
-
-      # - run: flutter build linux --no-tree-shake-icons
-
-      - name: Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+      - uses: actions/upload-artifact@v4
         with:
-          tag_name: ${{ github.ref }}
-          name: Release ${{ github.ref }}
-          body: TODO New Release.
-          draft: false
-          prerelease: true
-          files: |
-            build/app/outputs/flutter-apk/app-release-universal.apk
-            build/app/outputs/flutter-apk/app-release-arm64.apk
-            build/app/outputs/bundle/release/app-release.aab
-            release_linux.tar.gz
+          name: release_apk_universal
+          path: build/app/outputs/flutter-apk/app-release-universal.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release_apk_arm64
+          path: build/app/outputs/flutter-apk/app-release-arm64.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release_app
+          path: build/app/outputs/bundle/release/app-release.aab
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release_linux
+          path: release_linux.tar.gz
+
+  build-windows:
+    name: Build Windows app
+    runs-on: windows-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter build windows
+
+  # release:
+  #   name: Release
+  #   needs: [build-linux, build-windows]
+  #     - name: Release
+  #       uses: softprops/action-gh-release@v2
+  #       if: startsWith(github.ref, 'refs/tags/')
+  #       with:
+  #         tag_name: ${{ github.ref }}
+  #         name: Release ${{ github.ref }}
+  #         body: TODO New Release.
+  #         draft: false
+  #         prerelease: true
+  #         files: |
+  #           build/app/outputs/flutter-apk/app-release-universal.apk
+  #           build/app/outputs/flutter-apk/app-release-arm64.apk
+  #           build/app/outputs/bundle/release/app-release.aab
+  #           release_linux.tar.gz
             
