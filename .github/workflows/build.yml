@@ -69,6 +69,23 @@ jobs:
           name: release_exe
           path: build/windows/x64/runner/Release/rvc_client.exe
 
+  build-macos:
+    name: Build Flutter MacOS app
+    runs-on: macos-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter build macos
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release_macos
+          path: build/macos/x64/runner/Release/rvc_client.exe
+
   release:
     name: Release
     runs-on: ubuntu-latest
@@ -105,7 +122,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           name: Release ${{ github.ref }}
-          body: TODO New Release.
+          body: New Pre-Release.
           draft: false
           prerelease: true
           files: |
@@ -113,4 +130,5 @@ jobs:
             app-release-arm64.apk
             app-release.aab
             release_linux.tar.gz
+            rvc_client.exe
             
