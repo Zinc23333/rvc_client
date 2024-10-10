@@ -121,6 +121,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: release_macos
+      
+      - run: |
+          mv app-release-universal.apk RVC-${{ github.ref }}-android-universal.apk
+          mv app-release-arm64.apk     RVC-${{ github.ref }}-android-arm64.apk
+          mv app-release.aab           RVC-${{ github.ref }}-android.aab
+          mv release_linux.tar.gz      RVC-${{ github.ref }}-linux.tar.gz
+          mv rvc_client.exe            RVC-${{ github.ref }}-windows.exe
+          mv rvc_client.app            RVC-${{ github.ref }}-macos.app
+
 
       - name: Release
         uses: softprops/action-gh-release@v2
@@ -132,10 +141,10 @@ jobs:
           draft: false
           prerelease: true
           files: |
-            app-release-universal.apk
-            app-release-arm64.apk
-            app-release.aab
-            release_linux.tar.gz
-            rvc_client.exe
-            rvc_client.app
+            RVC-${{ github.ref }}-android-universal-universal.apk
+            RVC-${{ github.ref }}-android-arm64-arm64.apk
+            RVC-${{ github.ref }}-android.aab.aab
+            RVC-${{ github.ref }}-linux.tar.gz
+            RVC-${{ github.ref }}-windows.exe
+            RVC-${{ github.ref }}-macos.app
             
