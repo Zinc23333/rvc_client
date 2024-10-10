@@ -79,12 +79,13 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          cache: true
       - run: flutter build macos
 
       - uses: actions/upload-artifact@v4
         with:
           name: release_macos
-          path: build/macos/x64/runner/Release/rvc_client.exe
+          path: build/macos/Build/Products/Release/rvc_client.app
 
   release:
     name: Release
@@ -116,6 +117,11 @@ jobs:
         with:
           name: release_exe
 
+      - name: Download release_macos
+        uses: actions/download-artifact@v4
+        with:
+          name: release_macos
+
       - name: Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
@@ -131,4 +137,5 @@ jobs:
             app-release.aab
             release_linux.tar.gz
             rvc_client.exe
+            rvc_client.app
             
