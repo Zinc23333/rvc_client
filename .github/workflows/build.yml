@@ -50,6 +50,7 @@ jobs:
           name: release_linux
           path: release_linux.tar.gz
 
+          
   build-windows:
     name: Build Windows app
     runs-on: windows-latest
