@@ -16,7 +16,7 @@ jobs:
       - run: flutter --version
 
       - run: flutter pub get
-      - run: flutter build apk --no-tree-shake-icons
+      - run: flutter build apk --no-tree-shake-icons --release
       - run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-release-universal.apk
 
       - run: flutter build apk --no-tree-shake-icons --target-platform android-arm64 --release
