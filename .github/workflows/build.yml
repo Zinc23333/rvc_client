@@ -124,6 +124,7 @@ jobs:
       
       - name: Rename files
         run: |
+          ls -la
           mv app-release-universal.apk RVC-android-universal.apk
           mv app-release-arm64.apk     RVC-android-arm64.apk
           mv app-release.aab           RVC-android.aab
