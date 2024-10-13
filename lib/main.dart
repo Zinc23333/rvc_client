@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rvc_client/pages/music_box/page_music_box.dart';
 import 'package:rvc_client/pages/welcome/page_welcome1.dart';
 
 void main() {
@@ -48,6 +49,12 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text("1"),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const PageWelcome1()));
+              },
+            ),
+            ElevatedButton(
+              child: const Text("2"),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const PageMusicBox()));
               },
             )
           ],
